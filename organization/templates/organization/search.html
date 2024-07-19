@@ -1,0 +1,16 @@
+<!-- templates/search_app/search.html -->
+
+<form method="get" action="{% url 'search' %}">
+    <input type="text" name="q" placeholder="Search...">
+    <button type="submit">Search</button>
+</form>
+
+{% if organizations %}
+    <ul>
+        {% for organization in organizations %}
+            <li>{{ organization.id }} :: {{ organization.organization_id }} - {{ organization.name }} - {{ organization.number_of_employees }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No results found</p>
+{% endif %}
