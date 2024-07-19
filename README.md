@@ -46,3 +46,6 @@ curl --location 'http://0.0.0.0:8000/add-organization/' \
   "number_of_employees": 100
 }'
 
+## To run unit tests
+
+docker-compose exec backend python manage.py test
