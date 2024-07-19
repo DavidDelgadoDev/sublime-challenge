@@ -1,11 +1,27 @@
 # sublime-challenge
 
+## Description
 
-## To execute local env using docker
-docker-compose up --build
+This is a docker env which contain the following components:
+- Django application
+- Postgres DB
+- ElasticSearch instance
+- RabbitMQ instance
 
-## To execute celery worker in docker
-docker-compose exec backend celery -A sublime worker --loglevel=info
+To create the local env you have to execute the following command:
+`docker-compose up --build`
+
+Then, to get the celery worker ready:
+`docker-compose exec backend celery -A sublime worker --loglevel=info`
+
+The application has the following pages:
+
+- To upload the CSV file: `http://0.0.0.0:8000/upload_csv/`
+- For a simple search (For testing purposes): `http://0.0.0.0:8000/search/?q=Ritter`
+
+Once the system get a CSV to be processed, it enqueue a task for the CSV processing, and then, that task enqueue a new task to process each row of the CSV. 
+
+Also, you have a couple of APIs available: 
 
 ## To call search organizations endpoint 
 curl -X GET 'http://localhost:8000/search-organizations/?q=New&page=1&page_limit=5'
@@ -29,3 +45,4 @@ curl --location 'http://0.0.0.0:8000/add-organization/' \
   "industry": "Technology",
   "number_of_employees": 100
 }'
+
